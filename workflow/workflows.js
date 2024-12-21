@@ -1,10 +1,8 @@
-import { EXTENSION_NAME } from '../consts.js';
+import { EXTENSION_NAME, settingsKey } from '../consts.js';
 import { replaceInputWithPlaceholder } from './parser.js';
-import { extension_settings } from '../../../../extensions.js';
-import { getRequestHeaders } from '../../../../../script.js';
 
 const t = SillyTavern.getContext().t;
-
+const { getRequestHeaders, extensionSettings } = SillyTavern.getContext();
 
 /**
  * Update the current workflow with a new placeholder
@@ -52,7 +50,7 @@ export async function saveWorkflowAs(workflowJson, name) {
 
     const response = await fetch('/api/sd/comfy/save-workflow', {
         method: 'POST',
-        headers: context.getRequestHeaders(),
+        headers: getRequestHeaders(),
         body: JSON.stringify({
             file_name: name,
             workflow: workflowJson,
@@ -132,7 +130,7 @@ async function loadComfyWorkflows() {
             const option = document.createElement('option');
             option.innerText = workflow;
             option.value = workflow;
-            option.selected = workflow === extension_settings.sd.comfy_workflow;
+            option.selected = workflow === extensionSettings[settingsKey].sd.comfy_workflow;
             $('#sd_comfy_workflow').append(option);
         }
     } catch (error) {
@@ -157,8 +155,8 @@ export async function changeWorkflow(newWorkflowName) {
 
     const context = SillyTavern.getContext();
     context.extensionSettings.sd.comfy_workflow = newWorkflowName;
-
     workflowSelect.value = newWorkflowName;
+
     console.log(`[${EXTENSION_NAME}]`, t`Changed workflow to`, newWorkflowName);
     workflowSelect.dispatchEvent(new Event('change'));
 }
