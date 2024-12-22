@@ -1,10 +1,13 @@
 {
   "display_name": "Comfier Placeholders",
-  "version": "1.0.1",
-  "description": "A new extension",
+  "version": "1.0.2",
+  "description": "Automatically inserts placeholders into ComfyUI workflows, to connect them to the SillyTavern image generation controls.",
   "author": "ceruleandeep <cerulean@cerulean.foo>",
   "license": "AGPL-3.0",
   "js": "index.js",
   "loading_order": 10,
-  "homepage": "https://github.com/ceruleandeep/SillyTavern-ComfierPlaceholders"
+  "homepage": "https://github.com/ceruleandeep/SillyTavern-ComfierPlaceholders",
+  "auto_update": true,
+  "requires": [],
+  "optional": []
 }
